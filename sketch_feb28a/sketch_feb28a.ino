@@ -2,18 +2,40 @@
 #define OUTPUT_PIN 88
 
 #include <WiFi.h>
+#include <DHTesp.h>
 #include <MQTT.h>
+#include <ThingsBoard.h>
 
 const char ssid[] = "";
 const char password[] = "";
 
 const char mqtt_broker[] = "thingsboard.cloud";
+const char mqtt_Token[] = "";
 const char mqtt_topic[] = "v1/devices/me/telemetry";
-const char mqtt_client_id = "";
+// const char mqtt_client_id = "";
 int MQTT_PORT = 1883;
 
 WiFiClient net;
-MQTTClient client;
+DHTesp dht;
+// MQTTClient client;
+ThingsBoard tb(net);
+
+RPC_Response processGetVal1(const RPC_Data &data){
+  String respStr="";
+
+  return respStr;
+}
+
+RPC_Response processGetVal2(const RPC_Data &data){
+  String respStr = "";
+
+  return respStr;
+}
+
+RPC_Callback callbacks[]={
+  {"valiable1",},
+  {"valiable2",}
+};
 
 void connect() {
   Serial.print("checking wifi...");
@@ -22,15 +44,7 @@ void connect() {
     delay(1000);
   }
 
-  Serial.print("\nconnecting...");
-  while (!client.connect(mqtt_client_id)) {  
-    Serial.print(".");
-    delay(1000);
-  }
-
-  Serial.println("\nconnected!");
-
-  client.subscribe(mqtt_topic);
+  
   // client.unsubscribe("/hello");
 }
 
