@@ -1,11 +1,11 @@
-#define INPUT_PIN 89
-#define OUTPUT_PIN 88
+#define INPUT_PIN 23
+#define OUTPUT_PIN 24
 
 #include <WiFi.h>
 #include <ThingsBoard.h>
 
-const char ssid[] = ""; 
-const char password[] = "";
+const char ssid[] = "G10"; 
+const char password[] = "g10embed";
 
 const char mqtt_broker[] = "thingsboard.cloud";
 const char mqtt_Token[] = "7aKzt3N0249c1ZVtlQfs";
@@ -48,6 +48,7 @@ void loop() {
 
   if(!tb.connected()){
     if(!tb.connect(mqtt_broker,mqtt_Token,1883)){
+      Serial.println("Connect mqtt...");
       return;
     }
   }
@@ -70,6 +71,7 @@ void reconnected(){
     if(status != WL_CONNECTED){
       WiFi.begin(ssid,password);
       while(WiFi.status() != WL_CONNECTED){
+        Serial.println("Reconnect...");
         delay(500);
       }
     }
