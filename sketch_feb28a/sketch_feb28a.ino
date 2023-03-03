@@ -6,6 +6,8 @@
 
 const char ssid[] = "@JumboPlusIot"; 
 const char password[] = "g10embed";
+//const char ssid[] = "vivo13055";
+//const char password[] = "Boss26052546";
 
 const char mqtt_broker[] = "thingsboard.cloud";
 const char mqtt_Token[] = "7aKzt3N0249c1ZVtlQfs";
