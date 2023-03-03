@@ -4,7 +4,7 @@
 #include <WiFi.h>
 #include <ThingsBoard.h>
 
-const char ssid[] = "G10"; 
+const char ssid[] = "@JumboPlusIot"; 
 const char password[] = "g10embed";
 
 const char mqtt_broker[] = "thingsboard.cloud";
@@ -19,8 +19,6 @@ WiFiClient net;
 ThingsBoard tb(net);
 
 void connect() {
-  Serial.print("checking wifi...");
-  WiFi.begin(ssid,password);
   initWiFi();
   // client.unsubscribe("/hello");
 }
@@ -52,18 +50,26 @@ void loop() {
       return;
     }
   }
-
-  tb.sendTelemetryFloat("pulse", 2); //<- send value to thingboard
+  double pulse = 2.00;
+  tb.sendTelemetryFloat("pulse", pulse); //<- send value to thingboard
 
   tb.loop();
 }
 
 void initWiFi(){
+  Serial.println("Wifi connecting ...");
   WiFi.begin(ssid,password);
   while(WiFi.status() != WL_CONNECTED){
     delay(500);
     Serial.print(".");
   }
+  Serial.print("\n MQTT connecting ...");
+  tb.connect(mqtt_broker, mqtt_Token,MQTT_PORT);
+  while(!tb.connected()){
+    delay(500);
+    Serial.print(".");
+  }
+
 }
 
 void reconnected(){
